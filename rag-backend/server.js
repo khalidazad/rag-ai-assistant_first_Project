@@ -13,10 +13,11 @@ app.use(express.json())
 app.use(cors())
 
 const upload = multer({ storage: multer.memoryStorage() })
+console.log("API KEY:", process.env.OPENAI_API_KEY)
 
 // 🔥 OpenRouter Client
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY,  // ← changed
   baseURL: "https://openrouter.ai/api/v1",
   defaultHeaders: {
     "HTTP-Referer": "http://localhost:3000",
@@ -75,8 +76,8 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.json({ message: "PDF processed & embedded ✅" })
 
   } catch (err) {
-    console.error(err)
-    res.status(500).json({ error: "Upload failed" })
+     console.error("UPLOAD ERROR:", err)
+  res.status(500).json({ error: err.message })
   }
 })
 
@@ -133,3 +134,4 @@ app.post("/chat", async (req, res) => {
 app.listen(3000, () => {
   console.log("Server running at http://localhost:3000")
 })
+
