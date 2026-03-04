@@ -1,7 +1,7 @@
 import { useState } from "react"
 import axios from "axios"
 
-const API = "https://bubbly-inspiration-production.up.railway.app/"
+const API = "https://bubbly-inspiration-production.up.railway.app"
 
 function App() {
 
